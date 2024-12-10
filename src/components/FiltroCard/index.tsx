@@ -1,41 +1,43 @@
 import { useDispatch, useSelector } from 'react-redux'
 
 import * as S from './styles'
-import * as enums from '../../utils/enums/Tarefa'
 import { alterarFiltro } from '../../store/reducers/filtro'
 import { RootReducer } from '../../store'
 
 export type Props = {
   legenda: string
-  criterio: 'prioridade' | 'status' | 'todas'
-  valor?: enums.Prioridade | enums.Status
+  categoria:
+    | 'EMERGENCIA'
+    | 'FAMILIA'
+    | 'OUTROS'
+    | 'SERVICOS'
+    | 'TODOS'
+    | 'TRABALHO'
 }
 
-const FiltroCard = ({ legenda, criterio, valor }: Props) => {
+const FiltroCard = ({ legenda, categoria }: Props) => {
   const dispatch = useDispatch()
-  const { filtro, tarefas } = useSelector((state: RootReducer) => state)
+  const filtro = useSelector((state: RootReducer) => state.filtro)
+  const contatos = useSelector((state: RootReducer) => state.contatos)
 
   const verificaEstaAtivo = () => {
-    const mesmoCriterio = filtro.criterio === criterio
-    const mesmoValor = filtro.valor === valor
-    return mesmoCriterio && mesmoValor
+    const mesmaCategoria = filtro.categoria === categoria
+    return mesmaCategoria
   }
 
   const contarTarefas = () => {
-    if (criterio === 'todas') return tarefas.itens.length
-    if (criterio === 'prioridade') {
-      return tarefas.itens.filter((item) => item.prioridade === valor).length
-    }
-    if (criterio === 'status') {
-      return tarefas.itens.filter((item) => item.status === valor).length
+    if (categoria === 'TODOS') {
+      return contatos.itens.length
+    } else {
+      return contatos.itens.filter((item) => item.categoria === categoria)
+        .length
     }
   }
 
   const filtrar = () => {
     dispatch(
       alterarFiltro({
-        criterio,
-        valor
+        categoria
       })
     )
   }
@@ -45,10 +47,10 @@ const FiltroCard = ({ legenda, criterio, valor }: Props) => {
   const contador = contarTarefas()
 
   return (
-    <S.Card ativo={ativo} onClick={filtrar}>
-      <S.Contador>{contador}</S.Contador>
-      <S.Label>{legenda}</S.Label>
-    </S.Card>
+    <S.LCCardSmall $ativo={ativo} onClick={filtrar}>
+      <S.LCContador>{contador}</S.LCContador>
+      <S.LCCategoria>{legenda}</S.LCCategoria>
+    </S.LCCardSmall>
   )
 }
 

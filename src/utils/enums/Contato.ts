@@ -1,0 +1,7 @@
+export enum Categoria {
+  EMERGENCIA = 'EMERGENCIA',
+  FAMILIA = 'FAMILIA',
+  OUTROS = 'OUTROS',
+  SERVICOS = 'SERVICOS',
+  TRABALHO = 'TRABALHO'
+}

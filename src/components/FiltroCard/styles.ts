@@ -1,24 +1,27 @@
 import styled from 'styled-components'
+import variaveis from '../../styles/variaveis'
 
 type Props = {
-  ativo: boolean
+  $ativo: boolean
 }
 
-export const Card = styled.div<Props>`
+export const LCCardSmall = styled.div<Props>`
   padding: 8px;
-  border: 1px solid ${(props) => (props.ativo ? '#1e90ff' : '#a1a1a1')};
-  background-color: ${(props) => (props.ativo ? '#ffffff' : '#fcfcfc')};
-  color: ${(props) => (props.ativo ? '#1e90ff' : '#5e5e5e')};
+  border: 3px solid ${variaveis.corPreto};
+  background-color: ${(props) =>
+    props.$ativo ? variaveis.corAmarelo : variaveis.corBranco};
+  color: ${variaveis.corPreto};
   border-radius: 8px;
   cursor: pointer;
 `
 
-export const Contador = styled.span`
-  font-size: 24px;
+export const LCContador = styled.span`
+  font-size: 12px;
   font-weight: bold;
   display: block;
 `
 
-export const Label = styled.span`
-  font-size: 14px;
+export const LCCategoria = styled.span`
+  font-size: 10px;
+  font-weight: bold;
 `

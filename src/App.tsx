@@ -1,7 +1,7 @@
 import { Provider } from 'react-redux'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
-import EstiloGlobal, { Container } from './styles'
+import EstiloGlobal from './styles'
 import store from './store'
 import Home from './pages/Home'
 import Cadastro from './pages/Cadastro'
@@ -21,9 +21,7 @@ function App() {
   return (
     <Provider store={store}>
       <EstiloGlobal />
-      <Container>
-        <RouterProvider router={rotas} />
-      </Container>
+      <RouterProvider router={rotas} />
     </Provider>
   )
 }
